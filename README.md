@@ -1,12 +1,12 @@
-# quick-sort#include "txLib.h"
+#include "txLib.h"
 
 int const DATA_SIZE = 50;
 
 
 void fill  (int data [],int size);
 void print (int const data [], int size);
-void sort (int data [], int size);
-int dividyng (int data [], int start, int end);
+void sort (int data [], int start, int end, int wall);
+int partish (int data [], int start, int end);
 
 
 
@@ -17,9 +17,10 @@ int main ()
 
     int data [DATA_SIZE] = {};
     fill (data, DATA_SIZE);
-    sort (data, DATA_SIZE);
-    print (data, DATA_SIZE);
-    printf ("wall =%d", dividyng (data, 0, DATA_SIZE));
+    sort (data, 0, DATA_SIZE , partish (data, 0, DATA_SIZE));
+  //  print (data, DATA_SIZE);
+    //int a = partish (data, 0, DATA_SIZE);
+  //  printf ("wall =%d\n", a);
     print (data, DATA_SIZE);
 
     }
@@ -54,17 +55,18 @@ void print (int const data [], int size)
 
     }
 
-int dividyng (int data[], int start, int end)
+int partish (int data[], int start, int end)
 
     {
 
-    int pivot = end - 1;
+    int pilot = end - 1;
     int wall = start;
-    for (int i = start; i < end; i++)
+    printf ("%d\n", data[pilot]);
+    for (int i = start; i < pilot; i++)
 
         {
 
-        if (data [i] < data [pivot])
+        if (data [i] < data [pilot])
 
             {
 
@@ -75,22 +77,37 @@ int dividyng (int data[], int start, int end)
 
             }
 
-        return wall;
-
         }
+
+    int a = data[wall];
+    data [wall] = data [pilot];
+    data[pilot] = a;
+
+    return wall;
 
     }
 
-void sort (int data[], int size)
+void sort (int data[], int start, int end, int wall)
 
     {
-   // while (1 > 0)
 
-      //  {
-    //
-    //    int dividyng ( data, 0, size);
+    if (wall - start > 1)
 
-        //}
+        {
+
+        int a = partish ( data, start, wall);
+        sort (data, start, wall, a);
+
+        }
+
+    if (end - wall > 1)
+
+        {
+
+        int b = partish( data, wall+1, end);
+        sort ( data, wall+1, end, b);
+
+        }
 
     }
 
