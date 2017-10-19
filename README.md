@@ -7,6 +7,7 @@ void fill  (int data [],int size);
 void print (int const data [], int size);
 void sort (int data [], int start, int end, int wall);
 int partish (int data [], int start, int end);
+void swap (int first_elem, int second_elem, int data []);
 
 
 
@@ -79,9 +80,10 @@ int partish (int data[], int start, int end)
 
         }
 
-    int a = data[wall];
-    data [wall] = data [pilot];
-    data[pilot] = a;
+    swap (wall, pilot, data);
+    //int a = data[wall];
+    //data [wall] = data [pilot];
+    //data[pilot] = a;
 
     return wall;
 
@@ -95,8 +97,7 @@ void sort (int data[], int start, int end, int wall)
 
         {
 
-        int a = partish ( data, start, wall);
-        sort (data, start, wall, a);
+        sort (data, start, wall,partish ( data, start, wall));
 
         }
 
@@ -104,10 +105,20 @@ void sort (int data[], int start, int end, int wall)
 
         {
 
-        int b = partish( data, wall+1, end);
-        sort ( data, wall+1, end, b);
+        sort ( data, wall+1, end, partish( data, wall+1, end));
 
         }
+
+    }
+
+
+void swap (int first_elem, int second_elem, int data [])
+
+    {
+
+    int a = data[first_elem];
+    data [first_elem] = data [second_elem];
+    data[second_elem] = a;
 
     }
 
